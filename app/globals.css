@@ -1,0 +1,30 @@
+:root {
+  --navy: #0d2847;
+  --deep-blue: #0a2472;
+  --royal-blue: #123499;
+  --brand-blue: #2b59d8;
+  --light-blue: #6e93f0;
+  --electric: #0033ff;
+  --body-on-dark: #b9c2d0;
+  --white: #ffffff;
+  --error: #ff8a8a;
+  --grad-brand: linear-gradient(135deg, var(--light-blue), var(--brand-blue));
+  --grad-dark: linear-gradient(135deg, var(--navy) 0%, var(--royal-blue) 60%, var(--electric) 130%);
+  --radius: 20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  min-height: 100dvh;
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+button, input, select { font: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
