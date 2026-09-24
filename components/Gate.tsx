@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { saveVisitor } from "@/lib/sheet";
 import { cleanName, titleCase, validateName } from "@/lib/validateName";
 import Countdown from "./Countdown";
 import s from "./gate.module.css";
@@ -50,6 +51,7 @@ export default function Gate() {
     if (error) return;
     const n = titleCase(cleanName(name));
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: n })); } catch {}
+    saveVisitor(n);
     setLeaving(true);
     setTimeout(() => { setVisitor(n); setLeaving(false); }, 380);
   }
