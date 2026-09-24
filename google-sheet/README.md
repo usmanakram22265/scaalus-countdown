@@ -36,8 +36,20 @@ This takes about 5 minutes, and you only do it once.
 
 ## 4. Test it
 
-Open the site in a private/incognito window, enter a name, and within a few seconds a **Visitors** tab
-with your row should appear in the sheet.
+Open your web app URL (the one ending in `/exec`) in a normal browser tab. You should see something like:
+
+```json
+{"ok":true,"message":"Script is working. Names are saved in the sheet below.","sheet":"https://docs.google.com/spreadsheets/d/.../edit#gid=...","rows":0}
+```
+
+Open the `sheet` link to see the names. If you get a Google sign-in page or "Page not found" instead,
+the deployment isn't set to **Who has access: Anyone** (see step 2). If you get `"ok":false`, the
+`error` text says what went wrong.
+
+Then test the site itself:
+
+Open the site in a private/incognito window and enter a name. Within a few seconds a new row should
+appear in the **Visitors** tab of the sheet.
 
 ## Good to know
 
