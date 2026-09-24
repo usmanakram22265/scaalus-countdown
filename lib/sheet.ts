@@ -1,6 +1,6 @@
 // Sends each new visitor name to the Google Sheet. Setup: google-sheet/README.md.
 // Paste your Apps Script "Web app URL" here (it ends in /exec). Leave empty to turn saving off.
-export const SHEET_URL = "";
+export const SHEET_URL = "https://script.google.com/macros/s/AKfycbwWPmueVEJnXUf6KfW7Fe6m3sgFPWvZHpFhLnOUx13fgkOJQu8mAKf5DF4fBAXcr3iFCQ/exec";
 
 export function saveVisitor(name: string): void {
   if (!SHEET_URL) return;
