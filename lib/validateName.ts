@@ -72,6 +72,28 @@ function neighbourKeyRatio(w: string): number {
   return hits / Math.max(1, w.length - 1);
 }
 
+// Letter pairs that (almost) never appear in names in any language. ^ marks the start and $ the end of a word.
+// Two or more of these in one word ("lkasjd" → lk, sj) means it is very likely random typing.
+const RARE_PAIRS = new Set(
+  (
+    "bf bg bk bm bp bq bs bv bw bx cb cd cf cg cj cl cm cn cp cq cs cv cw cx cy cz db dc dj dk dl dp dq " +
+    "ds dx fb fc fg fh fj fk fl fm fn fp fv fw fx gb gc gd gf gj gk gm gp gq gv gx gz hc hp hv hx ii jb " +
+    "jd jf jg jk jl jn jq jv jx jy jz kc kd kf kg kj kk kl km kp kq kv kx lj lk lx lz mc mf mg mj mk ml " +
+    "mq mv mw mx nb nl nq pb pc pd pf pg pj pk pm pn pq pv pw px pz qc qf qg qh qj qk ql qn qp qq qt qx " +
+    "qy qz rb rc rp rx sf sq sx tc td tf tg tk tm tn tp tq tv tx uu uv ux vb vc vd vf vg vh vj vk vm vn " +
+    "vp vq vr vt vu vv vw vx vy vz v$ wb wc wd wf wg wj wm wp wq ws wt wv wx wz xb xc xd xf xg xh xj xk " +
+    "xl xm xn xp xq xr xs xt xu xv xw xx xz yb yf yg yh yj yk yq yr yv yw yx zc zd zf zg zj zl zn zp zq " +
+    "zs zx "
+  ).split(" "),
+);
+
+function rarePairs(w: string): number {
+  const s = `^${w}$`;
+  let n = 0;
+  for (let i = 0; i + 2 <= s.length; i++) if (RARE_PAIRS.has(s.slice(i, i + 2))) n++;
+  return n;
+}
+
 /** True only when a word is very likely random typing, so unusual real names still pass. */
 function looksRandom(w: string): boolean {
   return (
@@ -81,7 +103,8 @@ function looksRandom(w: string): boolean {
     /[aeiou]{4,}/.test(w) ||                              // "aeiou"
     hasKeyboardRun(w) ||                                  // "qwert"
     (w.length >= 6 && neighbourKeyRatio(w) >= 0.8) ||     // "sdfsdfs"
-    (w.length >= 6 && /^(.{1,3})\1{2,}$/.test(w))         // "hahaha", "abcabcabc"
+    (w.length >= 6 && /^(.{1,3})\1{2,}$/.test(w)) ||      // "hahaha", "abcabcabc"
+    rarePairs(w) >= 2                                     // "lkasjd", "hsgdja"
   );
 }
 
