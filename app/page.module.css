@@ -44,6 +44,10 @@
   font-size: 13px;
   color: var(--muted);
 }
+/* Keep the footer text clear of the floating day/night switch. */
+@media (min-width: 481px) {
+  .footer { padding-right: 160px; }
+}
 .footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
 .footer a:hover { text-decoration: underline; }
 @media (max-width: 480px) {

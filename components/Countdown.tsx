@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { greetingName } from "@/lib/validateName";
 import s from "./gate.module.css";
 
 // Launch: 9 October 2026, midnight US Eastern (15 days from 24 Sep 2026).
@@ -35,9 +36,8 @@ export default function Countdown({ name, onReset }: { name?: string; onReset?: 
   const remaining = now === null ? null : TARGET - now;
   const live = remaining !== null && remaining <= 0;
   const p = remaining === null ? null : parts(remaining);
-  // Greet by the first real word, skipping initials/titles like "Ch" or "M.".
-  const words = name?.split(" ");
-  const first = words?.find((w) => w.replace(/[.'’-]/g, "").length > 2) ?? words?.[0];
+  // Greet by the first real name, skipping initials and titles ("Syed Ali Raza" → "Ali").
+  const first = name ? greetingName(name) : undefined;
 
   const units: [string, number | undefined][] = [
     ["Days", p?.days],

@@ -1,12 +1,9 @@
 // Name filter for a mostly Pakistani audience typing names in Roman (English) letters.
-// A name must contain at least one recognised name word (spelling variants allowed),
-// and may contain at most one unrecognised word (for rarer surnames).
-
-import { COMMON_WORDS, NAMES } from "./names";
+// Any name is allowed unless a word is abusive or is very likely random typing (keyboard mash).
 
 const words = (s: string) => s.trim().split(/\s+/);
 
-/** Loose Roman-Urdu normalisation so Muhammad/Mohammad, Sameer/Samir, Aly/Ali line up. */
+/** Loose Roman-Urdu normalisation so Muhammad/Mohammad and Syed/Sayed compare equal. */
 function norm(w: string): string {
   return w
     .toLowerCase()
@@ -18,15 +15,10 @@ function norm(w: string): string {
     .replace(/([aeiou])h$/, "$1")
     .replace(/y$/, "i");
 }
-const skeleton = (w: string) => w.replace(/[aeiou]/g, "");
-
-const KNOWN = new Set(words(NAMES).map(norm));
-const KNOWN_LIST = [...KNOWN];
-const COMMON = new Set(words(COMMON_WORDS).map(norm));
 
 // Titles on their own don't count as a name.
 const TITLES = new Set(
-  words("mr mrs miss ms dr engr prof sahib advocate hafiz qari maulana mufti ch sahibzada nawabzada").map(norm),
+  words("mr mrs miss ms dr engr prof sahib advocate qari maulana mufti ch sahibzada nawabzada").map(norm),
 );
 // Prefixes skipped when choosing the name to greet by ("Syed Ali Raza" → "Ali").
 const GREET_SKIP = new Set(
@@ -36,32 +28,6 @@ const GREET_SKIP = new Set(
       "muhammad mohammad mohammed muhammed mohamed mohd md",
   ).map(norm),
 );
-
-function lev(a: string, b: string, max: number): number {
-  if (Math.abs(a.length - b.length) > max) return max + 1;
-  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
-  for (let i = 1; i <= a.length; i++) {
-    const cur = [i];
-    let best = i;
-    for (let j = 1; j <= b.length; j++) {
-      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
-      best = Math.min(best, cur[j]);
-    }
-    if (best > max) return max + 1;
-    prev = cur;
-  }
-  return prev[b.length];
-}
-
-/** Known name, allowing vowel-spelling variants (Usman/Osman) and, for longer names, one typo. */
-function isKnown(n: string): boolean {
-  if (KNOWN.has(n)) return true;
-  if (n.length < 4) return false;
-  const sk = skeleton(n);
-  return KNOWN_LIST.some(
-    (k) => (skeleton(k) === sk && lev(n, k, 2) <= 2) || (n.length >= 6 && lev(n, k, 1) <= 1),
-  );
-}
 
 // Stored reversed so the source isn't a wall of abuse.
 const rev = (w: string) => w.split("").reverse().join("");
@@ -82,11 +48,12 @@ const BLOCKED_EXACT = new Set(
 
 const KEY_ROWS = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 
+// Five keys in a row along one keyboard row ("asdfg", "poiuy"). No real name has one.
 function hasKeyboardRun(w: string): boolean {
   return KEY_ROWS.some((row) => {
     const back = rev(row);
-    for (let i = 0; i + 4 <= row.length; i++) {
-      if (w.includes(row.slice(i, i + 4)) || w.includes(back.slice(i, i + 4))) return true;
+    for (let i = 0; i + 5 <= row.length; i++) {
+      if (w.includes(row.slice(i, i + 5)) || w.includes(back.slice(i, i + 5))) return true;
     }
     return false;
   });
@@ -105,15 +72,16 @@ function neighbourKeyRatio(w: string): number {
   return hits / Math.max(1, w.length - 1);
 }
 
-function looksLikeMash(w: string): boolean {
+/** True only when a word is very likely random typing, so unusual real names still pass. */
+function looksRandom(w: string): boolean {
   return (
-    /(.)\1\1/.test(w) ||
-    !/[aeiouy]/.test(w) ||
-    /[bcdfghjklmnpqrstvwxz]{5,}/.test(w) ||
-    /[aeiou]{4,}/.test(w) ||
-    hasKeyboardRun(w) ||
-    (w.length >= 5 && neighbourKeyRatio(w) >= 0.6) ||
-    (w.length >= 4 && /^(.{1,2})\1+$/.test(w))
+    /(.)\1\1/.test(w) ||                                  // "aaa", "kkkk"
+    (w.length >= 4 && !/[aeiouy]/.test(w)) ||             // "bcdfg"
+    /[bcdfghjklmnpqrstvwxz]{5,}/.test(w) ||               // "rtkjlm"
+    /[aeiou]{4,}/.test(w) ||                              // "aeiou"
+    hasKeyboardRun(w) ||                                  // "qwert"
+    (w.length >= 6 && neighbourKeyRatio(w) >= 0.8) ||     // "sdfsdfs"
+    (w.length >= 6 && /^(.{1,3})\1{2,}$/.test(w))         // "hahaha", "abcabcabc"
   );
 }
 
@@ -131,7 +99,7 @@ export function greetingName(name: string): string {
   return parts.find((p) => norm(p).length > 2 && !GREET_SKIP.has(norm(p))) ?? parts.find((p) => norm(p).length > 2) ?? parts[0];
 }
 
-const NOT_REAL = "Please enter your real name, e.g. Ali Khan.";
+const NOT_REAL = "That doesn't look like a real name. Please try again.";
 
 /** Returns an error message, or null when the name looks real. */
 export function validateName(raw: string): string | null {
@@ -145,35 +113,23 @@ export function validateName(raw: string): string | null {
   const parts = name.split(" ");
   if (parts.length > 5) return "Just your first and last name, please.";
 
-  let knownNames = 0;
-  let unknown = 0;
+  let realWords = 0;
   for (const word of parts) {
     if (!/^[A-Za-z]+(?:['-][A-Za-z]+)*\.?$/.test(word)) return "Please use letters only.";
 
     const w = word.toLowerCase().replace(/[^a-z]/g, "");
-    const n = norm(word);
-
     if (BLOCKED_EXACT.has(w) || BLOCKED_ANYWHERE.some((b) => w.includes(b))) {
       return "Let's keep it friendly. Please enter your real name.";
     }
-    // Initials like "M" or "Ch" are fine inside a longer name.
-    if (parts.length > 1 && w.length <= 2) continue;
-    if (COMMON.has(n) && !KNOWN.has(n)) return NOT_REAL;
-    if (looksLikeMash(w)) return "That doesn't look like a real name. Please try again.";
-
-    if (isKnown(n)) {
-      if (!TITLES.has(n)) knownNames++;
-    } else {
-      unknown++;
-    }
+    if (looksRandom(w)) return NOT_REAL;
+    if (w.length > 2 && !TITLES.has(norm(word))) realWords++;
   }
 
-  if (knownNames === 0) {
-    return parts.length === 1 && TITLES.has(norm(parts[0]))
+  if (realWords === 0) {
+    return parts.some((p) => TITLES.has(norm(p)))
       ? "Please add your name after the title."
-      : "We don't recognise that name. " + NOT_REAL;
+      : "That's a bit short. What's your full name?";
   }
-  if (unknown > 1) return "We don't recognise some of those words. " + NOT_REAL;
   if (parts.length > 1 && new Set(parts.map(norm)).size === 1) return NOT_REAL;
   return null;
 }
