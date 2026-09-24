@@ -1,29 +1,87 @@
+/* Scaalus palette: brand guidelines page 4. */
 :root {
   --navy: #0d2847;
   --deep-blue: #0a2472;
   --royal-blue: #123499;
   --brand-blue: #2b59d8;
   --light-blue: #6e93f0;
-  --electric: #0033ff;
-  --body-on-dark: #b9c2d0;
+  --grey-text: #5b6573;
+  --card: #f3f1ec;
+  --bg: #faf9f6;
   --white: #ffffff;
-  --error: #ff8a8a;
-  --grad-brand: linear-gradient(135deg, var(--light-blue), var(--brand-blue));
-  --grad-dark: linear-gradient(135deg, var(--navy) 0%, var(--royal-blue) 60%, var(--electric) 130%);
+  --body-on-dark: #b9c2d0;
+  --grad-brand: linear-gradient(90deg, var(--light-blue), var(--brand-blue));
+  --grad-dark: linear-gradient(120deg, #0d2847 0%, #123499 70%, #0033ff 130%);
   --radius: 20px;
+}
+
+/* Dark (fallback when JS is off; otherwise the device theme is applied before paint): navy page, white headlines, Light Blue accents. */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: var(--navy);
+  --text: var(--white);
+  --muted: var(--body-on-dark);
+  --surface: var(--deep-blue);
+  --field: var(--navy);
+  --field-focus: var(--navy);
+  --placeholder: rgba(185, 194, 208, 0.6);
+  --line: rgba(110, 147, 240, 0.2);
+  --orb: #0f2f66;
+  --accent: var(--light-blue);
+  --overlay: rgba(13, 40, 71, 0.35);
+  --error: #ff8a8a;
+  --shadow: rgba(0, 8, 40, 0.7);
+  --panel-border: rgba(110, 147, 240, 0.25);
+}
+
+/* No-JS fallback for light devices. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --page-bg: var(--bg); --text: var(--navy); --muted: var(--grey-text); --surface: var(--white);
+    --field: var(--card); --field-focus: var(--white); --placeholder: #8a929d; --line: #e6e3dc;
+    --orb: #e9edf8; --accent: var(--brand-blue); --overlay: rgba(250, 249, 246, 0.35);
+    --error: #c83a3a; --shadow: rgba(13, 40, 71, 0.45); --panel-border: transparent;
+  }
+}
+
+/* Light: warm off-white 60% · navy 25% · Brand Blue 10% · Light Blue 5%. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --page-bg: var(--bg);
+  --text: var(--navy);
+  --muted: var(--grey-text);
+  --surface: var(--white);
+  --field: var(--card);
+  --field-focus: var(--white);
+  --placeholder: #8a929d;
+  --line: #e6e3dc;
+  --orb: #e9edf8;
+  --accent: var(--brand-blue);
+  --overlay: rgba(250, 249, 246, 0.35);
+  --error: #c83a3a;
+  --shadow: rgba(13, 40, 71, 0.45);
+  --panel-border: transparent;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
   min-height: 100dvh;
-  background: var(--navy);
-  color: var(--white);
+  background: var(--page-bg);
+  color: var(--text);
   font-family: var(--font-poppins), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 button, input, select { font: inherit; }
+
+/* Swap logos per theme. */
+.logo-light { display: none; }
+:root[data-theme="light"] .logo-light { display: block; }
+:root[data-theme="light"] .logo-dark { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }

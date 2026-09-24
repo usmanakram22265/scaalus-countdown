@@ -77,9 +77,7 @@ export default function Gate() {
             onSubmit={submit}
             noValidate
           >
-            <span className={s.eyebrow}>Something new is coming</span>
             <h2 id={titleId} className={s.title}>Before we reveal…</h2>
-            <p className={s.lead}>Enter your name to unlock the countdown.</p>
 
             <label className={s.label} htmlFor={nameId}>What&apos;s your name?</label>
             <input
@@ -88,7 +86,7 @@ export default function Gate() {
               className={`${s.input} ${showError ? s.invalid : ""}`}
               type="text"
               autoComplete="name"
-              placeholder="e.g. Sarah Johnson"
+              placeholder="e.g. Ch M Usman Akram"
               maxLength={40}
               required
               value={name}

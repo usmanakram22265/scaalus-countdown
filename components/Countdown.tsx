@@ -35,7 +35,9 @@ export default function Countdown({ name, onReset }: { name?: string; onReset?: 
   const remaining = now === null ? null : TARGET - now;
   const live = remaining !== null && remaining <= 0;
   const p = remaining === null ? null : parts(remaining);
-  const first = name?.split(" ")[0];
+  // Greet by the first real word, skipping initials/titles like "Ch" or "M.".
+  const words = name?.split(" ");
+  const first = words?.find((w) => w.replace(/[.'’-]/g, "").length > 2) ?? words?.[0];
 
   const units: [string, number | undefined][] = [
     ["Days", p?.days],
@@ -49,14 +51,15 @@ export default function Countdown({ name, onReset }: { name?: string; onReset?: 
       <p className={s.hello}>{first ? <>Hey {first} 👋</> : " "}</p>
       {live ? (
         <>
-          <h1 className={s.bigTitle}>We&apos;re live 🚀</h1>
+          <h1 className={s.bigTitle}>We&apos;re <span className={s.hl}>live.</span></h1>
           <p className={s.lead}>Scaalus is here. Come and see what&apos;s new.</p>
-          <a className={s.glass} href="https://scaalus.com">Visit scaalus.com</a>
+          <a className={s.cta} href="https://scaalus.com">Visit scaalus.com</a>
         </>
       ) : (
         <>
           <span className={s.eyebrow}>Launching soon</span>
-          <h1 className={s.bigTitle}>Something big is almost here.</h1>
+          <h1 className={s.bigTitle}>Something big is <span className={s.hl}>almost here.</span></h1>
+          <div className={s.panel}>
           <div className={s.tiles} role="timer" aria-live="off" aria-label="Time until launch">
             {units.map(([label, value]) => (
               <div className={s.tile} key={label}>
@@ -68,6 +71,7 @@ export default function Countdown({ name, onReset }: { name?: string; onReset?: 
                 <span className={s.unit}>{label}</span>
               </div>
             ))}
+          </div>
           </div>
           <p className={s.lead}>
             {first ? <>You&apos;re on the list, {first}. See you on launch day.</> : " "}
