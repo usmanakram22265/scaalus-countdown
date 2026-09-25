@@ -103,7 +103,8 @@ body {
 }
 button, input, select { font: inherit; }
 
-/* Swap logos per theme. */
+/* Swap logos per theme (both as blocks, so they sit at exactly the same spot). */
+.logo-dark { display: block; }
 .logo-light { display: none; }
 :root[data-theme="light"] .logo-light { display: block; }
 :root[data-theme="light"] .logo-dark { display: none; }
