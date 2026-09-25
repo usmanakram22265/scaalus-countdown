@@ -1,64 +1,61 @@
-/* Light/dark switch in the header: a frosted pill with a glowing knob that slides to the active icon. */
+/* Light/dark switch in the header: a two-part pill showing both options, with a glowing brand-blue
+   highlight that slides behind the active one. */
 .toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  height: 44px;
-  padding: 4px 16px 4px 4px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 48px;
+  padding: 4px;
   border-radius: 999px;
   border: 1px solid var(--glass-border);
   background: var(--glass-bg);
-  color: var(--text);
-  box-shadow: var(--glass-shadow);
+  color: var(--muted);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent), 0 12px 30px -14px var(--knob-glow);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
   backdrop-filter: blur(18px) saturate(160%);
   cursor: pointer;
-  transition: border-color 0.2s, background 0.3s, box-shadow 0.2s, transform 0.15s;
+  transition: box-shadow 0.2s, transform 0.15s;
 }
-.toggle:hover {
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--glass-border));
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent), var(--glass-shadow);
-}
+.toggle:hover { box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent), 0 12px 30px -14px var(--knob-glow); }
 .toggle:active { transform: scale(0.97); }
 .toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-.track {
-  position: relative;
-  display: grid;
-  grid-template-columns: 34px 34px;
-  align-items: center;
-  justify-items: center;
-  height: 34px;
-  border-radius: 999px;
-  background: var(--track);
-}
 .thumb {
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 999px;
   background: var(--knob);
-  box-shadow: 0 4px 14px -2px var(--knob-glow);
-  transform: translateX(34px); /* dark: under the moon */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 6px 18px -4px var(--knob-glow);
+  transform: translateX(100%); /* dark: behind "Dark" */
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.icon { position: relative; z-index: 1; color: var(--muted); transition: color 0.3s, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
-.moon { color: var(--white); }
+.seg {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.seg svg { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.dark { color: var(--white); }
 
-.label { font-size: 14px; font-weight: 500; min-width: 36px; text-align: left; }
-.labelLight { display: none; }
-
-/* Light: knob slides to the sun. */
+/* Light: highlight slides behind "Light". */
 :global(:root[data-theme="light"]) .thumb { transform: none; }
-:global(:root[data-theme="light"]) .sun { color: var(--white); transform: rotate(45deg); }
-:global(:root[data-theme="light"]) .moon { color: var(--muted); }
-:global(:root[data-theme="light"]) .labelDark { display: none; }
-:global(:root[data-theme="light"]) .labelLight { display: inline; }
+:global(:root[data-theme="light"]) .light { color: var(--white); }
+:global(:root[data-theme="light"]) .light svg { transform: rotate(45deg); }
+:global(:root[data-theme="light"]) .dark { color: var(--muted); }
 
-/* Phones: knob only, no label. */
-@media (max-width: 480px) {
-  .toggle { padding: 4px; gap: 0; }
-  .label { display: none; }
+/* Small phones: icons only. */
+@media (max-width: 420px) {
+  .toggle { height: 44px; }
+  .seg { padding: 0 12px; }
+  .text { display: none; }
 }
