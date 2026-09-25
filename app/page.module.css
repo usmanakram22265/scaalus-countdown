@@ -7,20 +7,25 @@
   overflow: hidden;
   isolation: isolate;
 }
-/* Faint grid that fades out from the top centre, plus a soft brand glow behind the headline. */
+/* Soft brand glow washing down from the top centre, over a fine dot pattern that fades out towards the edges. */
 .backdrop {
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image:
-    radial-gradient(ellipse 60% 45% at 50% 0%, var(--glow), transparent 70%),
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 100% 100%, 56px 56px, 56px 56px;
+  background:
+    radial-gradient(ellipse 50% 42% at 50% -6%, var(--aurora-1), transparent 78%),
+    radial-gradient(ellipse 80% 60% at 50% -10%, var(--aurora-2), transparent 80%);
+}
+.backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--dots) 1px, transparent 1.4px);
+  background-size: 22px 22px;
   background-position: center top;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 40%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, #000 30%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, #000 30%, transparent 85%);
 }
 /* Sits above the name popup so the logo and theme switch stay usable. */
 .header {
