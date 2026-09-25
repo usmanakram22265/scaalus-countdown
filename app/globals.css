@@ -1,6 +1,6 @@
 /* Scaalus brand palette (brand guidelines page 4): navy #0d2847, royal blue #123499, Brand Blue #2b59d8,
    Light Blue #6e93f0. Light is a soft brand-blue wash with white glass; dark is brand navy with deep-blue glass.
-   Both themes share one set of styles (glass, faint grid, countdown type); only these tokens differ. */
+   Both themes share one set of styles (glass, faint grid, flip-card countdown); only these tokens differ. */
 :root {
   --white: #ffffff;
   --radius: 16px;
@@ -35,12 +35,9 @@
   --mesh-5: transparent;
   --mesh-opacity: 0;
   --grid-line: rgba(110, 147, 240, 0.075);
-  /* Countdown numbers: white to Light Blue, lit by a royal-blue glow */
-  --num: linear-gradient(180deg, #ffffff 35%, #a9c2ff 100%);
-  --num-glow: drop-shadow(0 12px 36px rgba(43, 89, 216, 0.55));
-  --count-glow: rgba(43, 89, 216, 0.34);
+  /* Countdown: royal-blue flip cards (shared); only the labels and card shadow follow the theme */
   --unit: #9ab6ff;
-  --sep: #6e93f0;
+  --flip-shadow: rgba(0, 6, 24, 0.75);
   /* Controls */
   --btn: linear-gradient(135deg, #6e93f0 0%, #2b59d8 55%, #123499 100%);
   --btn-glow: rgba(43, 89, 216, 0.7);
@@ -79,12 +76,9 @@
   --mesh-5: #b4c9ff;
   --mesh-opacity: 1;
   --grid-line: rgba(13, 40, 71, 0.06);
-  /* Countdown numbers: navy to Brand Blue, over a soft white spotlight */
-  --num: linear-gradient(180deg, #0d2847 30%, #2b59d8 100%);
-  --num-glow: drop-shadow(0 12px 28px rgba(43, 89, 216, 0.22));
-  --count-glow: rgba(255, 255, 255, 0.8);
+  /* Countdown: royal-blue flip cards (shared); only the labels and card shadow follow the theme */
   --unit: #2b59d8;
-  --sep: #2b59d8;
+  --flip-shadow: rgba(13, 40, 71, 0.45);
   /* Controls */
   --btn: linear-gradient(135deg, #3d6be6 0%, #2b59d8 50%, #123499 100%);
   --btn-glow: rgba(43, 89, 216, 0.6);

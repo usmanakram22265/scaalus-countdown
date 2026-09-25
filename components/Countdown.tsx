@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { greetingName } from "@/lib/validateName";
 import s from "./gate.module.css";
 
@@ -60,18 +60,15 @@ export default function Countdown({ name, onReset }: { name?: string; onReset?: 
           <span className={s.eyebrow}>Launching soon</span>
           <h1 className={s.bigTitle}>Something big is <span className={s.hl}>almost here.</span></h1>
           <div className={s.tiles} role="timer" aria-live="off" aria-label="Time until launch">
-            {units.map(([label, value], i) => (
-              <Fragment key={label}>
-                {i > 0 && <span className={s.sep} aria-hidden />}
-                <div className={s.tile}>
-                  <span className={s.num}>
-                    <span key={value ?? "x"} className={s.digit}>
-                      {value === undefined ? "--" : pad(value)}
-                    </span>
+            {units.map(([label, value]) => (
+              <div className={s.tile} key={label}>
+                <span className={s.num}>
+                  <span key={value ?? "x"} className={s.digit}>
+                    {value === undefined ? "--" : pad(value)}
                   </span>
-                  <span className={s.unit}>{label}</span>
-                </div>
-              </Fragment>
+                </span>
+                <span className={s.unit}>{label}</span>
+              </div>
             ))}
           </div>
           <p className={s.lead}>
