@@ -199,3 +199,45 @@
   0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
   70%, 100% { box-shadow: 0 0 0 7px transparent; }
 }
+
+/* ---------- Light theme: aurora glass ---------- */
+/* Separate frosted tiles instead of the dark theme's single card. */
+:global(:root[data-theme="light"]) .tiles {
+  gap: clamp(8px, 2vw, 16px);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+:global(:root[data-theme="light"]) .tiles::before,
+:global(:root[data-theme="light"]) .tiles::after { display: none; }
+:global(:root[data-theme="light"]) .tile,
+:global(:root[data-theme="light"]) .card,
+:global(:root[data-theme="light"]) .eyebrow {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+}
+:global(:root[data-theme="light"]) .tile { border-radius: 20px; }
+/* Gradient on the animated digit itself, so the text clip follows its movement. */
+:global(:root[data-theme="light"]) .digit {
+  background: linear-gradient(180deg, #16133f 0%, #3a2f9e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+:global(:root[data-theme="light"]) .unit { color: #5040d8; }
+:global(:root[data-theme="light"]) .card { border-radius: 24px; }
+
+:global(:root[data-theme="light"]) .input { border-color: rgba(80, 64, 216, 0.16); }
+:global(:root[data-theme="light"]) .input:focus { background: #ffffff; border-color: #5040d8; }
+
+:global(:root[data-theme="light"]) .button,
+:global(:root[data-theme="light"]) .cta {
+  background: linear-gradient(135deg, #5040d8 0%, #2f6bf0 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 12px 28px -12px rgba(80, 64, 216, 0.8);
+}
+:global(:root[data-theme="light"]) .linkBtn { text-decoration-color: rgba(80, 64, 216, 0.3); }

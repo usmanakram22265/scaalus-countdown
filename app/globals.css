@@ -37,32 +37,35 @@
   --count-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.75);
 }
 
-/* Light: soft blue-grey page (brand ~60%), one navy focal card (~25%), Brand Blue accents, crisp white details. */
+/* Light, "aurora glass": a soft moving mesh of periwinkle, lavender and sky blue behind frosted-glass
+   surfaces, with deep-indigo text and indigo-to-blue accents taken from the Scaalus logo. */
 :root[data-theme="light"] {
   color-scheme: light;
-  --page-bg: #edf1f7;
-  --surface: #ffffff;
-  --text: var(--navy);
-  --muted: #58637a;
-  --line: #d8dfea;
-  --field: #f5f7fb;
-  --placeholder: #97a1b3;
-  --accent: var(--brand-blue);
-  --hl: linear-gradient(90deg, #2b59d8, #5b82ef);
-  --aurora-1: rgba(110, 147, 240, 0.34);
-  --aurora-2: rgba(43, 89, 216, 0.16);
-  --dots: rgba(13, 40, 71, 0.13);
-  --overlay: rgba(237, 241, 247, 0.5);
-  --error: #c83a3a;
-  --shadow: rgba(13, 40, 71, 0.2);
-  /* Countdown card */
-  --count-bg: linear-gradient(135deg, #0d2847 0%, #102f68 55%, #17409c 100%);
-  --count-border: rgba(13, 40, 71, 0.6);
-  --count-shine: rgba(110, 147, 240, 0.32);
-  --count-num: #ffffff;
-  --count-label: #9db8ff;
-  --count-divider: rgba(255, 255, 255, 0.12);
-  --count-shadow: 0 34px 60px -28px rgba(13, 40, 71, 0.55), 0 14px 24px -18px rgba(13, 40, 71, 0.4);
+  --page-bg: #eceffb;
+  --surface: rgba(255, 255, 255, 0.62);
+  --text: #16133f;
+  --muted: #5b5a86;
+  --line: rgba(255, 255, 255, 0.85);
+  --field: rgba(255, 255, 255, 0.75);
+  --placeholder: #9a98bd;
+  --accent: #5040d8;
+  --hl: linear-gradient(90deg, #5040d8 0%, #2f6bf0 100%);
+  --aurora-1: transparent;
+  --aurora-2: transparent;
+  --dots: transparent;
+  --overlay: rgba(236, 239, 251, 0.3);
+  --error: #c8364a;
+  --shadow: rgba(60, 50, 180, 0.28);
+  /* Frosted glass */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-shadow: 0 1px 1px rgba(22, 19, 63, 0.04), 0 24px 48px -24px rgba(60, 50, 180, 0.35);
+  /* Colour mesh */
+  --mesh-1: #a4b8ff;
+  --mesh-2: #c0b0ff;
+  --mesh-3: #a9dbff;
+  --mesh-4: #d4c8ff;
+  --mesh-5: #c9c2ff;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
