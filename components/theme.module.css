@@ -1,23 +1,63 @@
-/* Compact day/night switch in the header: shows the current theme's icon. */
+/* Light/dark switch in the header: a pill with a glowing brand-blue knob that slides to the active icon. */
 .toggle {
-  display: inline-grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 4px 16px 4px 4px;
+  border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--surface);
-  color: var(--muted);
+  color: var(--text);
+  box-shadow: 0 6px 20px -10px var(--shadow);
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, background 0.3s, transform 0.15s;
+  transition: border-color 0.2s, background 0.3s, box-shadow 0.2s, transform 0.15s;
 }
-.toggle:hover { color: var(--text); border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
-.toggle:active { transform: scale(0.94); }
+.toggle:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 12%, transparent), 0 6px 20px -10px var(--shadow);
+}
+.toggle:active { transform: scale(0.97); }
 .toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-.icon { grid-area: 1 / 1; transition: opacity 0.25s, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
-.sun { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+.track {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px 34px;
+  align-items: center;
+  justify-items: center;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--field);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--light-blue), var(--brand-blue));
+  box-shadow: 0 4px 14px -2px rgba(43, 89, 216, 0.65);
+  transform: translateX(34px); /* dark: under the moon */
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.icon { position: relative; z-index: 1; color: var(--muted); transition: color 0.3s, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.moon { color: var(--white); }
 
-:global(:root[data-theme="light"]) .moon { opacity: 0; transform: rotate(90deg) scale(0.6); }
-:global(:root[data-theme="light"]) .sun { opacity: 1; transform: none; }
+.label { font-size: 14px; font-weight: 500; min-width: 36px; text-align: left; }
+.labelLight { display: none; }
+
+/* Light: knob slides to the sun. */
+:global(:root[data-theme="light"]) .thumb { transform: none; }
+:global(:root[data-theme="light"]) .sun { color: var(--white); transform: rotate(45deg); }
+:global(:root[data-theme="light"]) .moon { color: var(--muted); }
+:global(:root[data-theme="light"]) .labelDark { display: none; }
+:global(:root[data-theme="light"]) .labelLight { display: inline; }
+
+/* Phones: knob only, no label. */
+@media (max-width: 480px) {
+  .toggle { padding: 4px; gap: 0; }
+  .label { display: none; }
+}

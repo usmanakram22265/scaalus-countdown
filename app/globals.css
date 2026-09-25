@@ -28,34 +28,34 @@
   --tile-shadow: none;
 }
 
-/* Light: cool off-white page, white cards, navy text, Brand Blue accents. */
+/* Light: soft blue-grey page, tinted cards (never stark white), navy text, Brand Blue accents. */
 :root[data-theme="light"] {
   color-scheme: light;
-  --page-bg: #f7f8fa;
-  --surface: #ffffff;
+  --page-bg: #e9eef6;
+  --surface: #f5f7fb;
   --text: var(--navy);
-  --muted: #5b6573;
-  --line: #e3e7ee;
-  --field: #ffffff;
-  --placeholder: #9aa3b1;
+  --muted: #56617a;
+  --line: #d3dbe8;
+  --field: #fbfcfe;
+  --placeholder: #97a1b3;
   --accent: var(--brand-blue);
-  --grid: rgba(13, 40, 71, 0.04);
-  --glow: rgba(43, 89, 216, 0.1);
-  --overlay: rgba(247, 248, 250, 0.55);
+  --grid: rgba(13, 40, 71, 0.055);
+  --glow: rgba(43, 89, 216, 0.16);
+  --overlay: rgba(233, 238, 246, 0.55);
   --error: #c83a3a;
-  --shadow: rgba(13, 40, 71, 0.14);
-  --tile-shadow: 0 1px 2px rgba(13, 40, 71, 0.04), 0 8px 24px -12px rgba(13, 40, 71, 0.08);
+  --shadow: rgba(13, 40, 71, 0.18);
+  --tile-shadow: 0 1px 2px rgba(13, 40, 71, 0.05), 0 10px 28px -14px rgba(13, 40, 71, 0.16);
 }
 
 /* No-JS fallback for light devices (same values as the light theme above). */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
     color-scheme: light;
-    --page-bg: #f7f8fa; --surface: #ffffff; --text: var(--navy); --muted: #5b6573; --line: #e3e7ee;
-    --field: #ffffff; --placeholder: #9aa3b1; --accent: var(--brand-blue); --grid: rgba(13, 40, 71, 0.04);
-    --glow: rgba(43, 89, 216, 0.1); --overlay: rgba(247, 248, 250, 0.55); --error: #c83a3a;
-    --shadow: rgba(13, 40, 71, 0.14);
-    --tile-shadow: 0 1px 2px rgba(13, 40, 71, 0.04), 0 8px 24px -12px rgba(13, 40, 71, 0.08);
+    --page-bg: #e9eef6; --surface: #f5f7fb; --text: var(--navy); --muted: #56617a; --line: #d3dbe8;
+    --field: #fbfcfe; --placeholder: #97a1b3; --accent: var(--brand-blue); --grid: rgba(13, 40, 71, 0.055);
+    --glow: rgba(43, 89, 216, 0.16); --overlay: rgba(233, 238, 246, 0.55); --error: #c83a3a;
+    --shadow: rgba(13, 40, 71, 0.18);
+    --tile-shadow: 0 1px 2px rgba(13, 40, 71, 0.05), 0 10px 28px -14px rgba(13, 40, 71, 0.16);
   }
 }
 
