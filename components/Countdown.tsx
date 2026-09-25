@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { greetingName } from "@/lib/validateName";
 import s from "./gate.module.css";
 
-// Launch: 10 October 2026, midnight US Eastern (15 days from 25 Sep 2026).
-const TARGET = Date.parse("2026-10-10T00:00:00-04:00");
+// Launch: 1 October 2026, midnight US Eastern (9:00 AM in Pakistan).
+const TARGET = Date.parse("2026-10-01T00:00:00-04:00");
 
 function parts(ms: number) {
   const t = Math.max(0, Math.floor(ms / 1000));
@@ -60,15 +60,18 @@ export default function Countdown({ name, onReset }: { name?: string; onReset?: 
           <span className={s.eyebrow}>Launching soon</span>
           <h1 className={s.bigTitle}>Something big is <span className={s.hl}>almost here.</span></h1>
           <div className={s.tiles} role="timer" aria-live="off" aria-label="Time until launch">
-            {units.map(([label, value]) => (
-              <div className={s.tile} key={label}>
-                <span className={s.num}>
-                  <span key={value ?? "x"} className={s.digit}>
-                    {value === undefined ? "--" : label === "Days" ? value : pad(value)}
+            {units.map(([label, value], i) => (
+              <Fragment key={label}>
+                {i > 0 && <span className={s.sep} aria-hidden />}
+                <div className={s.tile}>
+                  <span className={s.num}>
+                    <span key={value ?? "x"} className={s.digit}>
+                      {value === undefined ? "--" : pad(value)}
+                    </span>
                   </span>
-                </span>
-                <span className={s.unit}>{label}</span>
-              </div>
+                  <span className={s.unit}>{label}</span>
+                </div>
+              </Fragment>
             ))}
           </div>
           <p className={s.lead}>

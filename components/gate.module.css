@@ -133,43 +133,39 @@
 }
 .lead { margin: 32px 0 12px; color: var(--muted); font-size: 15px; line-height: 1.6; }
 
+/* The countdown is pure type: very large gradient numbers with a soft glow behind them, split by
+   two-dot separators that pulse once a second. No boxes, so the numbers themselves are the hero. */
 .tiles {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(8px, 2vw, 16px);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(6px, 2.4vw, 26px);
+  isolation: isolate;
 }
-/* Solid tiles, inverted against the page (see --tile-* in globals.css). */
+.tiles::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -30% -12%;
+  background: radial-gradient(ellipse 50% 50% at 50% 45%, var(--count-glow), transparent 72%);
+  pointer-events: none;
+}
 .tile {
-  background: var(--tile-bg);
-  border: 1px solid var(--tile-border);
-  box-shadow: var(--tile-shadow);
-  padding: clamp(22px, 4.2vw, 40px) 4px clamp(18px, 3.2vw, 30px);
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-}
-/* A thin accent along the top of each tile. */
-.tile { position: relative; }
-.tile::after {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 28%;
-  right: 28%;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, transparent, var(--tile-accent), transparent);
+  gap: clamp(8px, 1.6vw, 16px);
 }
 .num {
-  font-size: clamp(32px, 8.6vw, 72px);
+  font-size: clamp(46px, 12.5vw, 124px);
   font-weight: 600;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.045em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
   overflow: hidden;
+  padding: 0 0.02em 0.04em; /* keep the gradient clip from shaving glyph edges */
+  filter: var(--num-glow);
 }
 /* Gradient on the animated digit itself, so the text clip follows its movement. */
 .digit {
@@ -178,9 +174,27 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: tick 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: tick 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.unit { font-size: clamp(10px, 2.4vw, 12px); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--unit); }
+.unit { font-size: clamp(10px, 2.4vw, 13px); font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--unit); }
+/* Two dots, sized from the number's font size so they line up with the digits at every width. */
+.sep {
+  font-size: clamp(46px, 12.5vw, 124px);
+  height: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2em;
+  animation: sep 1s ease-in-out infinite;
+}
+.sep::before,
+.sep::after {
+  content: "";
+  width: 0.085em;
+  height: 0.085em;
+  border-radius: 50%;
+  background: var(--sep);
+}
 
 .linkBtn {
   background: none;
@@ -197,7 +211,8 @@
 
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-@keyframes tick { from { opacity: 0; transform: translateY(-40%); } to { opacity: 1; transform: none; } }
+@keyframes tick { from { opacity: 0; transform: translateY(-30%); } to { opacity: 1; transform: none; } }
+@keyframes sep { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 @keyframes pulse {
   0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
   70%, 100% { box-shadow: 0 0 0 7px transparent; }
