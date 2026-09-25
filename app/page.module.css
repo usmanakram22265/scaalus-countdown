@@ -33,42 +33,13 @@
   from { transform: translate3d(-3%, -2%, 0) rotate(0deg) scale(1); }
   to { transform: translate3d(3%, 2%, 0) rotate(8deg) scale(1.06); }
 }
-/* Dark only: an indigo spotlight from the top and a faint scatter of stars. */
+/* Dark only: a matte black page with one soft indigo glow sitting behind the countdown. */
 :global(:root:not([data-theme="light"])) .backdrop {
   background:
-    radial-gradient(ellipse 46% 42% at 50% -8%, rgba(99, 86, 255, 0.34), transparent 72%),
-    radial-gradient(ellipse 90% 55% at 50% -10%, rgba(58, 112, 245, 0.1), transparent 75%),
-    radial-gradient(1.2px 1.2px at 12% 18%, rgba(255, 255, 255, 0.55), transparent),
-    radial-gradient(1px 1px at 27% 42%, rgba(255, 255, 255, 0.35), transparent),
-    radial-gradient(1.4px 1.4px at 38% 12%, rgba(255, 255, 255, 0.5), transparent),
-    radial-gradient(1px 1px at 61% 28%, rgba(255, 255, 255, 0.4), transparent),
-    radial-gradient(1.3px 1.3px at 74% 9%, rgba(255, 255, 255, 0.55), transparent),
-    radial-gradient(1px 1px at 86% 36%, rgba(255, 255, 255, 0.35), transparent),
-    radial-gradient(1.2px 1.2px at 92% 16%, rgba(255, 255, 255, 0.45), transparent),
-    radial-gradient(1px 1px at 6% 52%, rgba(255, 255, 255, 0.3), transparent),
-    radial-gradient(1px 1px at 95% 58%, rgba(255, 255, 255, 0.3), transparent),
-    radial-gradient(1.1px 1.1px at 18% 66%, rgba(255, 255, 255, 0.25), transparent),
-    radial-gradient(1.1px 1.1px at 82% 70%, rgba(255, 255, 255, 0.25), transparent);
+    radial-gradient(ellipse 38% 30% at 50% 56%, rgba(93, 78, 240, 0.28), transparent 72%),
+    radial-gradient(ellipse 70% 50% at 50% 52%, rgba(58, 112, 245, 0.06), transparent 75%),
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 60%, rgba(0, 0, 0, 0.5) 100%);
 }
-/* Dark only: a glowing horizon curve, like the edge of a planet, just above the footer. */
-.backdrop::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: calc(150px - 100vw);
-  width: 200vw;
-  height: 100vw;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  display: none;
-  background: radial-gradient(ellipse 50% 50% at 50% 50%, #06060e 92%, #0d0b24 100%);
-  border-top: 1px solid rgba(178, 168, 255, 0.55);
-  box-shadow:
-    0 -1px 18px rgba(127, 115, 255, 0.55),
-    0 -30px 120px -10px rgba(93, 78, 240, 0.45),
-    inset 0 40px 80px -40px rgba(127, 115, 255, 0.35);
-}
-:global(:root:not([data-theme="light"])) .backdrop::after { display: block; }
 /* Sits above the name popup so the logo and theme switch stay usable. */
 .header {
   position: relative;
@@ -97,8 +68,6 @@
   font-size: 13px;
   color: var(--muted);
 }
-/* Dark: the horizon curve already separates the footer. */
-:global(:root:not([data-theme="light"])) .footer { border-top-color: transparent; }
 .footer a { color: var(--text); text-decoration: none; font-weight: 500; }
 .footer a:hover { color: var(--accent); }
 @media (max-width: 480px) {
