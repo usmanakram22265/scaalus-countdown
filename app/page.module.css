@@ -33,14 +33,23 @@
   from { transform: translate3d(-3%, -2%, 0) rotate(0deg) scale(1); }
   to { transform: translate3d(3%, 2%, 0) rotate(8deg) scale(1.06); }
 }
-/* Dark only: brand navy deepening towards the bottom, lit by the brand hero gradient
-   (royal blue at the top centre, a touch of electric blue top right, brand blue bottom left). */
+/* Dark only: brand navy. The header band (behind the logo) is exactly #0d2843; below it the page
+   deepens towards the bottom and is lit by the brand hero gradient on a separate layer that fades in
+   under the header (royal blue at the top centre, electric blue top right, brand blue bottom left). */
 :global(:root:not([data-theme="light"])) .backdrop {
+  --header-band: 96px;
+  background: linear-gradient(180deg, #0d2843 0, #0d2843 var(--header-band), #0b213d 60%, #091b33 100%);
+}
+:global(:root:not([data-theme="light"])) .backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(ellipse 55% 42% at 50% -6%, rgba(18, 52, 153, 0.85), transparent 72%),
-    radial-gradient(ellipse 34% 30% at 88% -4%, rgba(0, 51, 255, 0.28), transparent 70%),
-    radial-gradient(ellipse 40% 34% at 6% 104%, rgba(43, 89, 216, 0.2), transparent 70%),
-    linear-gradient(180deg, #0d2847 0%, #0b213d 55%, #091b33 100%);
+    radial-gradient(ellipse 55% 42% at 50% 6%, rgba(18, 52, 153, 0.85), transparent 72%),
+    radial-gradient(ellipse 34% 30% at 88% 8%, rgba(0, 51, 255, 0.28), transparent 70%),
+    radial-gradient(ellipse 40% 34% at 6% 104%, rgba(43, 89, 216, 0.2), transparent 70%);
+  mask-image: linear-gradient(180deg, transparent 0, transparent var(--header-band), #000 230px);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent var(--header-band), #000 230px);
 }
 
 /* A faint grid (76px cells, centred) that fades out towards the edges. */
@@ -56,6 +65,17 @@
   -webkit-mask-image: radial-gradient(ellipse 72% 78% at 50% 38%, #000 30%, transparent 82%);
 }
 
+/* Dark: no grid lines in the header band, so the logo sits on flat #0d2843. */
+:global(:root:not([data-theme="light"])) .grid {
+  mask-image:
+    linear-gradient(180deg, transparent 0, transparent 96px, #000 230px),
+    radial-gradient(ellipse 72% 78% at 50% 38%, #000 30%, transparent 82%);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    linear-gradient(180deg, transparent 0, transparent 96px, #000 230px),
+    radial-gradient(ellipse 72% 78% at 50% 38%, #000 30%, transparent 82%);
+  -webkit-mask-composite: source-in;
+}
 /* Sits above the name popup so the logo and theme switch stay usable. */
 .header {
   position: relative;
