@@ -13,7 +13,7 @@ export default function Home() {
       <header className={s.header}>
         <a href="https://scaalus.com" aria-label="Scaalus home">
           <Image className="logo-dark" src="/logo-white.png" alt="Scaalus" width={109} height={40} priority />
-          <Image className="logo-light" src="/logo-color.webp" alt="Scaalus" width={104} height={40} />
+          <Image className="logo-light" src="/logo-light.png" alt="Scaalus" width={538} height={176} />
         </a>
         <ThemeToggle />
       </header>
