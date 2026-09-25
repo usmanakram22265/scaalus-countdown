@@ -1,14 +1,13 @@
 /* Frosted-glass surfaces in the Scaalus logo's deep indigo (#181040) and indigo-violet (#5040d8) with blue
-   accents. Light is "aurora glass" (a drifting colour mesh); dark is "booked navy" (brand navy with a faint
-   calendar of booked jobs, see page.module.css). Both themes share one set of styles; only these tokens differ. */
+   accents. Light is "aurora glass" (a drifting colour mesh); dark is brand navy (see page.module.css). Both themes share one set of styles; only these tokens differ. */
 :root {
   --white: #ffffff;
   --radius: 16px;
 }
 
-/* Dark, "booked navy" (the default until the theme script picks one before paint), following the brand
-   guidelines: navy page, deep/royal blue surfaces, white headlines, Light Blue accents, the navy → royal →
-   electric-blue hero gradient as the glow, and a faint calendar of "booked jobs" behind it all. */
+/* Dark, brand navy (the default until the theme script picks one before paint), following the brand
+   guidelines: navy page, deep/royal blue surfaces, white headlines, Light Blue accents, and the navy → royal →
+   electric-blue hero gradient as the glow. */
 :root,
 :root[data-theme="dark"] {
   color-scheme: dark;

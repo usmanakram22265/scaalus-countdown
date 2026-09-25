@@ -147,7 +147,7 @@
   align-items: center;
   gap: 12px;
 }
-/* Dark only: a thin light-blue accent along the top of each tile, echoing the calendar's booked-job chips. */
+/* Dark only: a thin light-blue accent along the top of each tile. */
 :global(:root:not([data-theme="light"])) .tile { position: relative; }
 :global(:root:not([data-theme="light"])) .tile::after {
   content: "";
