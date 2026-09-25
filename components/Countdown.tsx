@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { greetingName } from "@/lib/validateName";
 import s from "./gate.module.css";
 
-// Launch: 16 November 2026, midnight US Eastern (EST, after daylight saving ends).
-const TARGET = Date.parse("2026-11-16T00:00:00-05:00");
+// Launch: 10 October 2026, midnight US Eastern (15 days from 25 Sep 2026).
+const TARGET = Date.parse("2026-10-10T00:00:00-04:00");
 
 function parts(ms: number) {
   const t = Math.max(0, Math.floor(ms / 1000));
