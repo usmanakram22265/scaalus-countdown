@@ -59,7 +59,6 @@ export default function Countdown({ name, onReset }: { name?: string; onReset?: 
         <>
           <span className={s.eyebrow}>Launching soon</span>
           <h1 className={s.bigTitle}>Something big is <span className={s.hl}>almost here.</span></h1>
-          <div className={s.panel}>
           <div className={s.tiles} role="timer" aria-live="off" aria-label="Time until launch">
             {units.map(([label, value]) => (
               <div className={s.tile} key={label}>
@@ -71,7 +70,6 @@ export default function Countdown({ name, onReset }: { name?: string; onReset?: 
                 <span className={s.unit}>{label}</span>
               </div>
             ))}
-          </div>
           </div>
           <p className={s.lead}>
             {first ? <>You&apos;re on the list, {first}. See you on launch day.</> : " "}
