@@ -1,11 +1,15 @@
 /* Light/dark switch in the header: a two-part pill showing both options, with a glowing brand-blue
    highlight that slides behind the active one. */
+/* Fixed size and an inner flex row (not grid on the <button> itself), so in-app browsers such as
+   Instagram's, which can enlarge text or mis-lay-out buttons, can't push the labels off the highlight. */
 .toggle {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 196px;
   height: 48px;
   padding: 4px;
+  margin: 0;
   border-radius: 999px;
   border: 1px solid var(--glass-border);
   background: var(--glass-bg);
@@ -14,7 +18,14 @@
   -webkit-backdrop-filter: blur(18px) saturate(160%);
   backdrop-filter: blur(18px) saturate(160%);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   transition: box-shadow 0.2s, transform 0.15s;
+}
+.inner {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 .toggle:hover { box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent), 0 12px 30px -14px var(--knob-glow); }
 .toggle:active { transform: scale(0.97); }
@@ -22,10 +33,10 @@
 
 .thumb {
   position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: 4px;
-  width: calc(50% - 4px);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
   border-radius: 999px;
   background: var(--knob);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 6px 18px -4px var(--knob-glow);
@@ -35,16 +46,19 @@
 .seg {
   position: relative;
   z-index: 1;
-  display: inline-flex;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 0 16px;
   font-size: 14px;
   font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
   transition: color 0.3s;
 }
-.seg svg { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.seg svg { flex: none; transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
 .dark { color: var(--white); }
 
 /* Light: highlight slides behind "Light". */
@@ -55,7 +69,6 @@
 
 /* Small phones: icons only. */
 @media (max-width: 420px) {
-  .toggle { height: 44px; }
-  .seg { padding: 0 12px; }
+  .toggle { width: 96px; height: 44px; }
   .text { display: none; }
 }

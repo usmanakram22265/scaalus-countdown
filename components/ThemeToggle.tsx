@@ -37,19 +37,21 @@ export default function ThemeToggle() {
   // Which side is highlighted comes from CSS on [data-theme], so server and client HTML always match.
   return (
     <button type="button" className={s.toggle} onClick={toggle} aria-label="Switch between light and dark theme">
-      <span className={s.thumb} aria-hidden />
-      <span className={`${s.seg} ${s.light}`} aria-hidden>
+      <span className={s.inner} aria-hidden>
+      <span className={s.thumb} />
+      <span className={`${s.seg} ${s.light}`}>
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none" />
           <path d="M12 2v2.2M12 19.8V22M2 12h2.2M19.8 12H22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6" />
         </svg>
         <span className={s.text}>Light</span>
       </span>
-      <span className={`${s.seg} ${s.dark}`} aria-hidden>
+      <span className={`${s.seg} ${s.dark}`}>
         <svg viewBox="0 0 24 24" width="18" height="18">
           <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" fill="currentColor" />
         </svg>
         <span className={s.text}>Dark</span>
+      </span>
       </span>
     </button>
   );

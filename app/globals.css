@@ -92,6 +92,8 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+/* Stop mobile and in-app browsers (e.g. Instagram) from enlarging text on their own. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   min-height: 100dvh;
   background: var(--page-bg);
