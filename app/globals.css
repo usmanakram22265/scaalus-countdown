@@ -1,5 +1,6 @@
-/* Frosted-glass surfaces in the Scaalus logo's deep indigo (#181040) and indigo-violet (#5040d8) with blue
-   accents. Light is "aurora glass" (a drifting colour mesh); dark is brand navy (see page.module.css). Both themes share one set of styles; only these tokens differ. */
+/* Scaalus brand palette (brand guidelines page 4): navy #0d2847, royal blue #123499, Brand Blue #2b59d8,
+   Light Blue #6e93f0. Light is a soft brand-blue wash with white glass; dark is brand navy with deep-blue glass.
+   Both themes share one set of styles (glass, faint grid, tile accent); only these tokens differ. */
 :root {
   --white: #ffffff;
   --radius: 16px;
@@ -33,6 +34,9 @@
   --mesh-4: transparent;
   --mesh-5: transparent;
   --mesh-opacity: 0;
+  /* Grid and tile accent, shared with light */
+  --grid-line: rgba(110, 147, 240, 0.075);
+  --tile-accent: #6e93f0;
   /* Numbers, controls */
   --num: linear-gradient(180deg, #ffffff 0%, #d6e2ff 100%);
   --unit: #9ab6ff;
@@ -46,42 +50,46 @@
   --field-border: rgba(110, 147, 240, 0.25);
 }
 
-/* Light: periwinkle, lavender and sky-blue mesh, white frosted glass, deep-indigo text. */
+/* Light, brand (guidelines: off-white ~60% · navy ~25% · Brand Blue ~10% · Light Blue ~5%): a soft brand-blue
+   colour wash so the page is never stark white, white frosted glass, navy text and numbers, Brand Blue accents. */
 :root[data-theme="light"] {
   color-scheme: light;
-  --page-bg: #eceffb;
-  --text: #16133f;
-  --muted: #5b5a86;
-  --line: rgba(255, 255, 255, 0.85);
-  --placeholder: #9a98bd;
-  --accent: #5040d8;
-  --hl: linear-gradient(90deg, #5040d8 0%, #2f6bf0 100%);
-  --overlay: rgba(236, 239, 251, 0.3);
-  --error: #c8364a;
-  --shadow: rgba(60, 50, 180, 0.28);
+  --page-bg: #e8eef9;
+  --text: #0d2847;
+  --muted: #4f5a6b;
+  --line: rgba(13, 40, 71, 0.1);
+  --placeholder: #8a929d;
+  --accent: #2b59d8;
+  --hl: linear-gradient(90deg, #2b59d8 0%, #3a67dd 100%);
+  --overlay: rgba(232, 238, 249, 0.35);
+  --error: #c83a3a;
+  --shadow: rgba(13, 40, 71, 0.25);
   /* Frosted glass */
-  --glass-bg: rgba(255, 255, 255, 0.55);
-  --glass-border: rgba(255, 255, 255, 0.8);
-  --glass-shadow: 0 1px 1px rgba(22, 19, 63, 0.04), 0 24px 48px -24px rgba(60, 50, 180, 0.35);
-  --glass-strong: rgba(255, 255, 255, 0.62);
-  /* Colour mesh */
-  --mesh-1: #a4b8ff;
-  --mesh-2: #c0b0ff;
-  --mesh-3: #a9dbff;
-  --mesh-4: #d4c8ff;
-  --mesh-5: #c9c2ff;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-shadow: 0 1px 1px rgba(13, 40, 71, 0.04), 0 24px 48px -24px rgba(13, 40, 71, 0.3);
+  --glass-strong: rgba(255, 255, 255, 0.7);
+  /* Colour mesh (brand blue tints only) */
+  --mesh-1: #a3bcff;
+  --mesh-2: #c3d4ff;
+  --mesh-3: #98c1ff;
+  --mesh-4: #cbdaff;
+  --mesh-5: #b4c9ff;
   --mesh-opacity: 1;
+  /* Grid and tile accent, shared with dark */
+  --grid-line: rgba(13, 40, 71, 0.06);
+  --tile-accent: #2b59d8;
   /* Numbers, controls */
-  --num: linear-gradient(180deg, #16133f 0%, #3a2f9e 100%);
-  --unit: #5040d8;
-  --btn: linear-gradient(135deg, #5040d8 0%, #2f6bf0 100%);
-  --btn-glow: rgba(80, 64, 216, 0.8);
-  --knob: linear-gradient(135deg, #5040d8 0%, #2f6bf0 100%);
-  --knob-glow: rgba(80, 64, 216, 0.6);
-  --track: rgba(80, 64, 216, 0.08);
-  --field: rgba(255, 255, 255, 0.75);
+  --num: linear-gradient(180deg, #0d2847 0%, #123499 100%);
+  --unit: #2b59d8;
+  --btn: linear-gradient(135deg, #3d6be6 0%, #2b59d8 50%, #123499 100%);
+  --btn-glow: rgba(43, 89, 216, 0.6);
+  --knob: linear-gradient(135deg, #6e93f0 0%, #2b59d8 100%);
+  --knob-glow: rgba(43, 89, 216, 0.55);
+  --track: rgba(43, 89, 216, 0.08);
+  --field: rgba(255, 255, 255, 0.8);
   --field-focus: #ffffff;
-  --field-border: rgba(80, 64, 216, 0.16);
+  --field-border: rgba(43, 89, 216, 0.18);
 }
 
 *, *::before, *::after { box-sizing: border-box; }

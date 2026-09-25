@@ -147,9 +147,9 @@
   align-items: center;
   gap: 12px;
 }
-/* Dark only: a thin light-blue accent along the top of each tile. */
-:global(:root:not([data-theme="light"])) .tile { position: relative; }
-:global(:root:not([data-theme="light"])) .tile::after {
+/* A thin accent along the top of each tile. */
+.tile { position: relative; }
+.tile::after {
   content: "";
   position: absolute;
   top: -1px;
@@ -157,7 +157,7 @@
   right: 28%;
   height: 2px;
   border-radius: 2px;
-  background: linear-gradient(90deg, transparent, #6e93f0, transparent);
+  background: linear-gradient(90deg, transparent, var(--tile-accent), transparent);
 }
 .num {
   font-size: clamp(32px, 8.6vw, 72px);
