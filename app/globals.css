@@ -1,31 +1,32 @@
 /* Frosted-glass surfaces in the Scaalus logo's deep indigo (#181040) and indigo-violet (#5040d8) with blue
-   accents. Light is "aurora glass" (a drifting colour mesh); dark is "obsidian" (matte black with light travelling
-   around the countdown tiles, see gate.module.css). Both themes share one set of styles; only these tokens differ. */
+   accents. Light is "aurora glass" (a drifting colour mesh); dark is "booked navy" (brand navy with a faint
+   calendar of booked jobs, see page.module.css). Both themes share one set of styles; only these tokens differ. */
 :root {
   --white: #ffffff;
   --radius: 16px;
 }
 
-/* Dark, "obsidian" (the default until the theme script picks one before paint): matte near-black, neutral
-   greys, solid dark tiles with a beam of indigo light travelling around each border, one soft glow. */
+/* Dark, "booked navy" (the default until the theme script picks one before paint), following the brand
+   guidelines: navy page, deep/royal blue surfaces, white headlines, Light Blue accents, the navy → royal →
+   electric-blue hero gradient as the glow, and a faint calendar of "booked jobs" behind it all. */
 :root,
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page-bg: #09090d;
-  --text: #f5f5f7;
-  --muted: #8f8fa3;
-  --line: rgba(255, 255, 255, 0.07);
-  --placeholder: #5f5f72;
-  --accent: #7f73ff;
-  --hl: linear-gradient(90deg, #a99eff 0%, #6fa3ff 100%);
-  --overlay: rgba(9, 9, 13, 0.5);
-  --error: #ff8fa3;
-  --shadow: rgba(0, 0, 0, 0.8);
-  /* Solid dark surfaces */
-  --glass-bg: linear-gradient(180deg, #14141b 0%, #101016 100%);
-  --glass-border: rgba(255, 255, 255, 0.07);
-  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 24px 48px -28px rgba(0, 0, 0, 0.95);
-  --glass-strong: linear-gradient(180deg, #15151c 0%, #101016 100%);
+  --page-bg: #0b213d;
+  --text: #ffffff;
+  --muted: #b9c2d0;
+  --line: rgba(110, 147, 240, 0.16);
+  --placeholder: #7d8aa3;
+  --accent: #6e93f0;
+  --hl: linear-gradient(90deg, #6e93f0 0%, #a9c2ff 100%);
+  --overlay: rgba(8, 24, 46, 0.45);
+  --error: #ff8a8a;
+  --shadow: rgba(2, 10, 30, 0.7);
+  /* Deep-blue glass */
+  --glass-bg: linear-gradient(180deg, rgba(18, 52, 153, 0.42) 0%, rgba(10, 36, 114, 0.26) 100%);
+  --glass-border: rgba(110, 147, 240, 0.24);
+  --glass-shadow: inset 0 1px 0 rgba(169, 194, 255, 0.18), 0 24px 48px -24px rgba(2, 10, 30, 0.8);
+  --glass-strong: linear-gradient(180deg, rgba(16, 46, 110, 0.94) 0%, rgba(11, 33, 72, 0.94) 100%);
   /* The light theme's colour mesh is off in dark */
   --mesh-1: transparent;
   --mesh-2: transparent;
@@ -34,16 +35,16 @@
   --mesh-5: transparent;
   --mesh-opacity: 0;
   /* Numbers, controls */
-  --num: linear-gradient(180deg, #ffffff 0%, #d9d6f5 100%);
-  --unit: #8f8fa3;
-  --btn: linear-gradient(135deg, #5d4ef0 0%, #3a70f5 100%);
-  --btn-glow: rgba(93, 78, 240, 0.6);
-  --knob: linear-gradient(135deg, #6c5ff5 0%, #3a70f5 100%);
-  --knob-glow: rgba(108, 95, 245, 0.6);
-  --track: rgba(255, 255, 255, 0.05);
-  --field: rgba(255, 255, 255, 0.03);
-  --field-focus: rgba(255, 255, 255, 0.05);
-  --field-border: rgba(255, 255, 255, 0.1);
+  --num: linear-gradient(180deg, #ffffff 0%, #d6e2ff 100%);
+  --unit: #9ab6ff;
+  --btn: linear-gradient(135deg, #6e93f0 0%, #2b59d8 55%, #123499 100%);
+  --btn-glow: rgba(43, 89, 216, 0.7);
+  --knob: linear-gradient(135deg, #6e93f0 0%, #2b59d8 100%);
+  --knob-glow: rgba(43, 89, 216, 0.7);
+  --track: rgba(10, 36, 114, 0.55);
+  --field: rgba(8, 24, 46, 0.55);
+  --field-focus: rgba(8, 24, 46, 0.8);
+  --field-border: rgba(110, 147, 240, 0.25);
 }
 
 /* Light: periwinkle, lavender and sky-blue mesh, white frosted glass, deep-indigo text. */
@@ -84,13 +85,6 @@
   --field-border: rgba(80, 64, 216, 0.16);
 }
 
-/* Animatable angle for the dark theme's travelling border light. */
-@property --beam {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
@@ -110,5 +104,9 @@ button, input, select { font: inherit; }
 :root[data-theme="light"] .logo-dark { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
