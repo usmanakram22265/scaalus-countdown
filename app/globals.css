@@ -1,48 +1,49 @@
-/* "Aurora glass": a slowly drifting colour mesh behind frosted-glass surfaces, in the Scaalus logo's
-   deep indigo (#181040) and indigo-violet (#5040d8) with blue accents. Both themes share one set of
-   styles; only these tokens differ. */
+/* Frosted-glass surfaces in the Scaalus logo's deep indigo (#181040) and indigo-violet (#5040d8) with blue
+   accents. Light is "aurora glass" (a drifting colour mesh); dark is "midnight horizon" (spotlight, stars and
+   a glowing horizon, see page.module.css). Both themes share one set of styles; only these tokens differ. */
 :root {
   --white: #ffffff;
   --radius: 16px;
 }
 
-/* Dark (the default until the theme script picks one before paint): deep indigo night with violet and blue glows. */
+/* Dark, "midnight horizon" (the default until the theme script picks one before paint): near-black sky,
+   one indigo spotlight from the top, faint stars, and a glowing horizon curve near the bottom. */
 :root,
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page-bg: #0a0a1f;
-  --text: #f1f0ff;
-  --muted: #a4a3c9;
-  --line: rgba(255, 255, 255, 0.1);
-  --placeholder: #74739c;
-  --accent: #8f86ff;
-  --hl: linear-gradient(90deg, #a495ff 0%, #6ea8ff 100%);
-  --overlay: rgba(10, 10, 31, 0.4);
+  --page-bg: #06060e;
+  --text: #f4f3ff;
+  --muted: #9895bd;
+  --line: rgba(255, 255, 255, 0.08);
+  --placeholder: #6d6a94;
+  --accent: #7f73ff;
+  --hl: linear-gradient(90deg, #b6abff 0%, #78a6ff 100%);
+  --overlay: rgba(6, 6, 14, 0.45);
   --error: #ff8fa3;
-  --shadow: rgba(0, 0, 0, 0.65);
-  /* Frosted glass */
-  --glass-bg: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 24px 48px -24px rgba(0, 0, 0, 0.75);
-  --glass-strong: rgba(20, 18, 52, 0.62);
-  /* Colour mesh */
-  --mesh-1: #3326b0;
-  --mesh-2: #1d44b8;
-  --mesh-3: #45208f;
-  --mesh-4: #12408f;
-  --mesh-5: #2c2aa6;
-  --mesh-opacity: 0.7;
+  --shadow: rgba(0, 0, 0, 0.75);
+  /* Dark glass: faint top-lit fill, hairline border with a brighter top edge */
+  --glass-bg: linear-gradient(180deg, rgba(150, 140, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --glass-border: rgba(190, 182, 255, 0.13);
+  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  --glass-strong: linear-gradient(180deg, rgba(24, 22, 48, 0.85) 0%, rgba(12, 12, 28, 0.85) 100%);
+  /* The light theme's colour mesh is off in dark */
+  --mesh-1: transparent;
+  --mesh-2: transparent;
+  --mesh-3: transparent;
+  --mesh-4: transparent;
+  --mesh-5: transparent;
+  --mesh-opacity: 0;
   /* Numbers, controls */
-  --num: linear-gradient(180deg, #ffffff 0%, #cbc6ff 100%);
-  --unit: #aaa1ff;
-  --btn: linear-gradient(135deg, #5b4be6 0%, #3b72f2 100%);
-  --btn-glow: rgba(91, 75, 230, 0.7);
-  --knob: linear-gradient(135deg, #6b5cf0 0%, #3b72f2 100%);
-  --knob-glow: rgba(107, 92, 240, 0.65);
-  --track: rgba(255, 255, 255, 0.07);
-  --field: rgba(255, 255, 255, 0.05);
-  --field-focus: rgba(255, 255, 255, 0.09);
-  --field-border: rgba(255, 255, 255, 0.14);
+  --num: linear-gradient(180deg, #ffffff 0%, #c9c4ff 100%);
+  --unit: #8f8bbd;
+  --btn: linear-gradient(135deg, #5d4ef0 0%, #3a70f5 100%);
+  --btn-glow: rgba(93, 78, 240, 0.75);
+  --knob: linear-gradient(135deg, #6c5ff5 0%, #3a70f5 100%);
+  --knob-glow: rgba(108, 95, 245, 0.7);
+  --track: rgba(255, 255, 255, 0.06);
+  --field: rgba(255, 255, 255, 0.04);
+  --field-focus: rgba(255, 255, 255, 0.07);
+  --field-border: rgba(255, 255, 255, 0.12);
 }
 
 /* Light: periwinkle, lavender and sky-blue mesh, white frosted glass, deep-indigo text. */
