@@ -1,58 +1,60 @@
-/* Scaalus brand colours (brand guidelines page 4). */
+/* "Aurora glass": a slowly drifting colour mesh behind frosted-glass surfaces, in the Scaalus logo's
+   deep indigo (#181040) and indigo-violet (#5040d8) with blue accents. Both themes share one set of
+   styles; only these tokens differ. */
 :root {
-  --navy: #0d2847;
-  --royal-blue: #123499;
-  --brand-blue: #2b59d8;
-  --light-blue: #6e93f0;
   --white: #ffffff;
   --radius: 16px;
 }
 
-/* Dark (the default until the theme script picks one before paint). */
+/* Dark (the default until the theme script picks one before paint): deep indigo night with violet and blue glows. */
 :root,
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page-bg: #081426;
-  --surface: #0d1d35;
-  --text: #eef2f8;
-  --muted: #9aa6b8;
-  --line: rgba(148, 170, 210, 0.14);
-  --field: #0a182d;
-  --placeholder: #66748a;
-  --accent: var(--light-blue);
-  --hl: linear-gradient(90deg, #6e93f0, #a9bfff);
-  --aurora-1: rgba(43, 89, 216, 0.3);
-  --aurora-2: rgba(110, 147, 240, 0.12);
-  --dots: rgba(148, 170, 210, 0.12);
-  --overlay: rgba(8, 20, 38, 0.55);
-  --error: #ff8a8a;
-  --shadow: rgba(0, 0, 0, 0.55);
-  /* Countdown card */
-  --count-bg: linear-gradient(180deg, #102443 0%, #0c1b33 100%);
-  --count-border: rgba(148, 170, 210, 0.16);
-  --count-shine: rgba(110, 147, 240, 0.18);
-  --count-num: #f3f6fb;
-  --count-label: #8fa2c2;
-  --count-divider: rgba(148, 170, 210, 0.14);
-  --count-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.75);
+  --page-bg: #0a0a1f;
+  --text: #f1f0ff;
+  --muted: #a4a3c9;
+  --line: rgba(255, 255, 255, 0.1);
+  --placeholder: #74739c;
+  --accent: #8f86ff;
+  --hl: linear-gradient(90deg, #a495ff 0%, #6ea8ff 100%);
+  --overlay: rgba(10, 10, 31, 0.4);
+  --error: #ff8fa3;
+  --shadow: rgba(0, 0, 0, 0.65);
+  /* Frosted glass */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 24px 48px -24px rgba(0, 0, 0, 0.75);
+  --glass-strong: rgba(20, 18, 52, 0.62);
+  /* Colour mesh */
+  --mesh-1: #3326b0;
+  --mesh-2: #1d44b8;
+  --mesh-3: #45208f;
+  --mesh-4: #12408f;
+  --mesh-5: #2c2aa6;
+  --mesh-opacity: 0.7;
+  /* Numbers, controls */
+  --num: linear-gradient(180deg, #ffffff 0%, #cbc6ff 100%);
+  --unit: #aaa1ff;
+  --btn: linear-gradient(135deg, #5b4be6 0%, #3b72f2 100%);
+  --btn-glow: rgba(91, 75, 230, 0.7);
+  --knob: linear-gradient(135deg, #6b5cf0 0%, #3b72f2 100%);
+  --knob-glow: rgba(107, 92, 240, 0.65);
+  --track: rgba(255, 255, 255, 0.07);
+  --field: rgba(255, 255, 255, 0.05);
+  --field-focus: rgba(255, 255, 255, 0.09);
+  --field-border: rgba(255, 255, 255, 0.14);
 }
 
-/* Light, "aurora glass": a soft moving mesh of periwinkle, lavender and sky blue behind frosted-glass
-   surfaces, with deep-indigo text and indigo-to-blue accents taken from the Scaalus logo. */
+/* Light: periwinkle, lavender and sky-blue mesh, white frosted glass, deep-indigo text. */
 :root[data-theme="light"] {
   color-scheme: light;
   --page-bg: #eceffb;
-  --surface: rgba(255, 255, 255, 0.62);
   --text: #16133f;
   --muted: #5b5a86;
   --line: rgba(255, 255, 255, 0.85);
-  --field: rgba(255, 255, 255, 0.75);
   --placeholder: #9a98bd;
   --accent: #5040d8;
   --hl: linear-gradient(90deg, #5040d8 0%, #2f6bf0 100%);
-  --aurora-1: transparent;
-  --aurora-2: transparent;
-  --dots: transparent;
   --overlay: rgba(236, 239, 251, 0.3);
   --error: #c8364a;
   --shadow: rgba(60, 50, 180, 0.28);
@@ -60,12 +62,25 @@
   --glass-bg: rgba(255, 255, 255, 0.55);
   --glass-border: rgba(255, 255, 255, 0.8);
   --glass-shadow: 0 1px 1px rgba(22, 19, 63, 0.04), 0 24px 48px -24px rgba(60, 50, 180, 0.35);
+  --glass-strong: rgba(255, 255, 255, 0.62);
   /* Colour mesh */
   --mesh-1: #a4b8ff;
   --mesh-2: #c0b0ff;
   --mesh-3: #a9dbff;
   --mesh-4: #d4c8ff;
   --mesh-5: #c9c2ff;
+  --mesh-opacity: 1;
+  /* Numbers, controls */
+  --num: linear-gradient(180deg, #16133f 0%, #3a2f9e 100%);
+  --unit: #5040d8;
+  --btn: linear-gradient(135deg, #5040d8 0%, #2f6bf0 100%);
+  --btn-glow: rgba(80, 64, 216, 0.8);
+  --knob: linear-gradient(135deg, #5040d8 0%, #2f6bf0 100%);
+  --knob-glow: rgba(80, 64, 216, 0.6);
+  --track: rgba(80, 64, 216, 0.08);
+  --field: rgba(255, 255, 255, 0.75);
+  --field-focus: #ffffff;
+  --field-border: rgba(80, 64, 216, 0.16);
 }
 
 *, *::before, *::after { box-sizing: border-box; }

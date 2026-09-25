@@ -1,3 +1,12 @@
+/* ---------- Frosted glass (tiles, popup, badge) ---------- */
+.card, .tile, .eyebrow {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+}
+
 /* ---------- Stage & popup ---------- */
 .stage { width: 100%; display: grid; place-items: center; transition: filter 0.5s ease, opacity 0.5s ease; }
 .blurred { filter: blur(14px); opacity: 0.55; pointer-events: none; user-select: none; }
@@ -19,10 +28,8 @@
 .card {
   width: min(100%, 420px);
   padding: clamp(28px, 5vw, 36px);
-  border-radius: 20px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  box-shadow: 0 1px 2px rgba(13, 40, 71, 0.06), 0 28px 64px -24px var(--shadow);
+  border-radius: 24px;
+  background: var(--glass-strong);
   display: flex;
   flex-direction: column;
   animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -36,7 +43,7 @@
   height: 48px;
   padding: 0 14px;
   border-radius: 12px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--field-border);
   background: var(--field);
   color: var(--text);
   font-size: 15px;
@@ -44,11 +51,11 @@
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 .input::placeholder { color: var(--placeholder); }
-.input:focus { background: var(--surface); border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent); }
+.input:focus { background: var(--field-focus); border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent); }
 .invalid, .invalid:focus { border-color: var(--error); box-shadow: 0 0 0 4px color-mix(in srgb, var(--error) 15%, transparent); }
 .error { min-height: 20px; margin: 8px 0 12px; font-size: 13px; color: var(--error); }
 
-/* Glossy brand-blue button: soft top highlight and a blue glow underneath. */
+/* Indigo-to-blue button with a soft top highlight and a glow underneath. */
 .button, .cta {
   height: 48px;
   display: inline-flex;
@@ -57,8 +64,8 @@
   gap: 8px;
   border: 0;
   border-radius: 12px;
-  background: linear-gradient(180deg, #3765e6 0%, var(--brand-blue) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 10px 24px -10px rgba(43, 89, 216, 0.75);
+  background: var(--btn);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 12px 28px -12px var(--btn-glow);
   color: var(--white);
   font-weight: 500;
   font-size: 15px;
@@ -67,7 +74,7 @@
   transition: filter 0.2s, transform 0.15s, opacity 0.2s, box-shadow 0.2s;
 }
 .button svg { transition: transform 0.2s; }
-.button:hover:not(:disabled), .cta:hover { filter: brightness(1.08); }
+.button:hover:not(:disabled), .cta:hover { filter: brightness(1.1); }
 .button:hover:not(:disabled) svg { transform: translateX(3px); }
 .button:active:not(:disabled) { transform: scale(0.98); }
 .button:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
@@ -85,16 +92,13 @@
 }
 .hello { margin: 0 0 20px; font-size: 15px; font-weight: 500; color: var(--muted); }
 
-/* Small pill with a pulsing dot. */
+/* Small glass pill with a pulsing dot. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 6px 14px 6px 10px;
   border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  box-shadow: 0 1px 2px rgba(13, 40, 71, 0.06);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -129,55 +133,38 @@
 }
 .lead { margin: 32px 0 12px; color: var(--muted); font-size: 15px; line-height: 1.6; }
 
-/* One navy card holds all four numbers, split by thin dividers. */
 .tiles {
-  position: relative;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-radius: 24px;
-  background: var(--count-bg);
-  border: 1px solid var(--count-border);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), var(--count-shadow);
-  overflow: hidden;
-  isolation: isolate;
-}
-/* Soft light from the top, and a thin bright edge along the top border. */
-.tiles::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(60% 90% at 50% -20%, var(--count-shine), transparent 70%);
-}
-.tiles::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  gap: clamp(8px, 2vw, 16px);
 }
 .tile {
   padding: clamp(22px, 4.2vw, 40px) 4px clamp(18px, 3.2vw, 30px);
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
 }
-.tile + .tile { border-left: 1px solid var(--count-divider); }
 .num {
   font-size: clamp(32px, 8.6vw, 72px);
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1;
-  color: var(--count-num);
   font-variant-numeric: tabular-nums;
   overflow: hidden;
 }
-.digit { display: inline-block; animation: tick 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
-.unit { font-size: clamp(10px, 2.4vw, 12px); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--count-label); }
+/* Gradient on the animated digit itself, so the text clip follows its movement. */
+.digit {
+  display: inline-block;
+  background: var(--num);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: tick 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.unit { font-size: clamp(10px, 2.4vw, 12px); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--unit); }
 
 .linkBtn {
   background: none;
@@ -185,7 +172,7 @@
   color: var(--muted);
   font-size: 13px;
   text-decoration: underline;
-  text-decoration-color: var(--line);
+  text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
   text-underline-offset: 4px;
   cursor: pointer;
   transition: color 0.2s, text-decoration-color 0.2s;
@@ -199,45 +186,3 @@
   0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
   70%, 100% { box-shadow: 0 0 0 7px transparent; }
 }
-
-/* ---------- Light theme: aurora glass ---------- */
-/* Separate frosted tiles instead of the dark theme's single card. */
-:global(:root[data-theme="light"]) .tiles {
-  gap: clamp(8px, 2vw, 16px);
-  background: none;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  overflow: visible;
-}
-:global(:root[data-theme="light"]) .tiles::before,
-:global(:root[data-theme="light"]) .tiles::after { display: none; }
-:global(:root[data-theme="light"]) .tile,
-:global(:root[data-theme="light"]) .card,
-:global(:root[data-theme="light"]) .eyebrow {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  backdrop-filter: blur(18px) saturate(160%);
-}
-:global(:root[data-theme="light"]) .tile { border-radius: 20px; }
-/* Gradient on the animated digit itself, so the text clip follows its movement. */
-:global(:root[data-theme="light"]) .digit {
-  background: linear-gradient(180deg, #16133f 0%, #3a2f9e 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-:global(:root[data-theme="light"]) .unit { color: #5040d8; }
-:global(:root[data-theme="light"]) .card { border-radius: 24px; }
-
-:global(:root[data-theme="light"]) .input { border-color: rgba(80, 64, 216, 0.16); }
-:global(:root[data-theme="light"]) .input:focus { background: #ffffff; border-color: #5040d8; }
-
-:global(:root[data-theme="light"]) .button,
-:global(:root[data-theme="light"]) .cta {
-  background: linear-gradient(135deg, #5040d8 0%, #2f6bf0 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 12px 28px -12px rgba(80, 64, 216, 0.8);
-}
-:global(:root[data-theme="light"]) .linkBtn { text-decoration-color: rgba(80, 64, 216, 0.3); }

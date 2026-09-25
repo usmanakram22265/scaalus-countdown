@@ -7,32 +7,17 @@
   overflow: hidden;
   isolation: isolate;
 }
-/* Soft brand glow washing down from the top centre, over a fine dot pattern that fades out towards the edges. */
+/* A large, heavily blurred colour mesh that drifts slowly behind the frosted-glass surfaces. */
 .backdrop {
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 50% 42% at 50% -6%, var(--aurora-1), transparent 78%),
-    radial-gradient(ellipse 80% 60% at 50% -10%, var(--aurora-2), transparent 80%);
 }
 .backdrop::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background-image: radial-gradient(var(--dots) 1px, transparent 1.4px);
-  background-size: 22px 22px;
-  background-position: center top;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, #000 30%, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, #000 30%, transparent 85%);
-}
-/* Light only: a large, heavily blurred colour mesh that drifts slowly behind the frosted-glass surfaces. */
-.backdrop::after {
-  content: "";
-  position: absolute;
   inset: -25%;
-  display: none;
   background:
     radial-gradient(30% 35% at 22% 22%, var(--mesh-1), transparent 70%),
     radial-gradient(28% 32% at 78% 18%, var(--mesh-2), transparent 70%),
@@ -40,9 +25,10 @@
     radial-gradient(30% 34% at 76% 76%, var(--mesh-4), transparent 70%),
     radial-gradient(34% 26% at 50% 52%, var(--mesh-5), transparent 72%);
   filter: blur(40px);
+  opacity: var(--mesh-opacity);
   animation: drift 28s ease-in-out infinite alternate;
+  transition: opacity 0.4s ease;
 }
-:global(:root[data-theme="light"]) .backdrop::after { display: block; }
 @keyframes drift {
   from { transform: translate3d(-3%, -2%, 0) rotate(0deg) scale(1); }
   to { transform: translate3d(3%, 2%, 0) rotate(8deg) scale(1.06); }
