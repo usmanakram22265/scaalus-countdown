@@ -88,6 +88,7 @@ export default function Gate() {
               className={`${s.input} ${showError ? s.invalid : ""}`}
               type="text"
               autoComplete="name"
+              placeholder="Type your name here"
               maxLength={40}
               required
               value={name}
